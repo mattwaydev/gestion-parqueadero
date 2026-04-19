@@ -23,8 +23,11 @@ class ElPaso:
         ctk.CTkLabel(self.panel_menu, text="GG, encontraste parqueadero", font=("Arial", 9), wraplength=180).pack()
         ctk.CTkButton(self.panel_menu, text="Registrar vehículo", command=self.mostrar_registro).pack(pady=10, padx=10, fill="x")
         ctk.CTkButton(self.panel_menu, text="Retirar vehículo", command=self.mostrar_retiro).pack(pady=5, padx=10, fill="x")
-        ctk.CTkButton(self.panel_menu, text="Consultar vehículo", command=self.mostrar_consulta).pack(pady=5, padx=10, fill="x")
+        ctk.CTkLabel(self.panel_menu, text="─────────────", font=("Arial", 8)).pack(pady=5)
+        ctk.CTkButton(self.panel_menu, text="Administrador", command=self.mostrar_admin).pack(pady=5, padx=10, fill="x")
+        ctk.CTkLabel(self.panel_menu, text="─────────────", font=("Arial", 8)).pack(pady=5)
         ctk.CTkButton(self.panel_menu, text="Ver mapa", command=self.mostrar_mapa).pack(pady=5, padx=10, fill="x")
+
 
     def mostrar_registro(self):
         for widget in self.panel_contenido.winfo_children():
@@ -159,6 +162,38 @@ class ElPaso:
                 btn = ctk.CTkButton(frame_fila, text=str(puesto), width=35, height=25, fg_color=color,
                                     hover_color=color)
                 btn.pack(side="left", padx=1)
+
+    def mostrar_admin(self):
+        for widget in self.panel_contenido.winfo_children():
+            widget.destroy()
+
+        ctk.CTkLabel(self.panel_contenido, text="Panel Administrador", font=("Arial", 18, "bold")).pack(pady=20)
+
+        ctk.CTkLabel(self.panel_contenido, text="Buscar vehículo por placa:").pack()
+        self.entry_placa_admin = ctk.CTkEntry(self.panel_contenido, placeholder_text="Ej: ABC123")
+        self.entry_placa_admin.pack(pady=5)
+        ctk.CTkButton(self.panel_contenido, text="Buscar", command=self.admin_consultar_vehiculo).pack(pady=5)
+
+        ctk.CTkLabel(self.panel_contenido, text="Ver vehículos por piso:").pack(pady=10)
+        self.entry_piso_admin = ctk.CTkEntry(self.panel_contenido, placeholder_text="1, 2 o 3")
+        self.entry_piso_admin.pack(pady=5)
+        ctk.CTkButton(self.panel_contenido, text="Ver piso", command=self.admin_consultar_piso).pack(pady=5)
+
+    def admin_consultar_vehiculo(self):
+        placa = self.entry_placa_admin.get()
+        if not placa:
+            messagebox.showerror("Error", "Ingresa una placa")
+            return
+        resultado = self.parqueadero.consultar_vehiculo(placa)
+        messagebox.showinfo("Resultado", resultado)
+
+    def admin_consultar_piso(self):
+        piso = self.entry_piso_admin.get()
+        if not piso:
+            messagebox.showerror("Error", "Ingresa un piso")
+            return
+        resultado = self.parqueadero.consultar_piso(int(piso))
+        messagebox.showinfo("Resultado", resultado)
 
 
 if __name__ == "__main__":
