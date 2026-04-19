@@ -80,7 +80,36 @@ class ElPaso:
         messagebox.showinfo("Pago", resultado)
 
     def mostrar_consulta(self):
-        pass
+        for widget in self.panel_contenido.winfo_children():
+            widget.destroy()
+
+        ctk.CTkLabel(self.panel_contenido, text="Consultar", font=("Arial", 18, "bold")).pack(pady=20)
+
+        ctk.CTkLabel(self.panel_contenido, text="Buscar por placa:").pack()
+        self.entry_placa_consulta = ctk.CTkEntry(self.panel_contenido, placeholder_text="Ej: ABC123")
+        self.entry_placa_consulta.pack(pady=5)
+        ctk.CTkButton(self.panel_contenido, text="Buscar vehículo", command=self.consultar_vehiculo).pack(pady=5)
+
+        ctk.CTkLabel(self.panel_contenido, text="Buscar por piso:").pack(pady=10)
+        self.entry_piso = ctk.CTkEntry(self.panel_contenido, placeholder_text="1, 2 o 3")
+        self.entry_piso.pack(pady=5)
+        ctk.CTkButton(self.panel_contenido, text="Ver vehículos del piso", command=self.consultar_piso).pack(pady=5)
+
+    def consultar_vehiculo(self):
+        placa = self.entry_placa_consulta.get()
+        if not placa:
+            messagebox.showerror("Error", "Ingresa una placa")
+            return
+        resultado = self.parqueadero.consultar_vehiculo(placa)
+        messagebox.showinfo("Resultado", resultado)
+
+    def consultar_piso(self):
+        piso = self.entry_piso.get()
+        if not piso:
+            messagebox.showerror("Error", "Ingresa un piso")
+            return
+        resultado = self.parqueadero.consultar_piso(int(piso))
+        messagebox.showinfo("Resultado", resultado)
 
     def mostrar_mapa(self):
         pass
