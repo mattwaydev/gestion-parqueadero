@@ -112,7 +112,53 @@ class ElPaso:
         messagebox.showinfo("Resultado", resultado)
 
     def mostrar_mapa(self):
-        pass
+        for widget in self.panel_contenido.winfo_children():
+            widget.destroy()
+
+        ctk.CTkLabel(self.panel_contenido, text="Mapa del parqueadero", font=("Arial", 18, "bold")).pack(pady=10)
+
+        # Selector de piso
+        self.piso_mapa = ctk.StringVar(value="1")
+        frame_piso = ctk.CTkFrame(self.panel_contenido)
+        frame_piso.pack(pady=5)
+        ctk.CTkLabel(frame_piso, text="Piso:").pack(side="left", padx=5)
+        ctk.CTkRadioButton(frame_piso, text="1", variable=self.piso_mapa, value="1", command=self.dibujar_mapa).pack(
+            side="left", padx=5)
+        ctk.CTkRadioButton(frame_piso, text="2", variable=self.piso_mapa, value="2", command=self.dibujar_mapa).pack(
+            side="left", padx=5)
+        ctk.CTkRadioButton(frame_piso, text="3", variable=self.piso_mapa, value="3", command=self.dibujar_mapa).pack(
+            side="left", padx=5)
+
+        # Frame del mapa
+        self.frame_mapa = ctk.CTkScrollableFrame(self.panel_contenido)
+        self.frame_mapa.pack(fill="both", expand=True, padx=10, pady=10)
+
+        self.dibujar_mapa()
+
+    def dibujar_mapa(self):
+        for widget in self.frame_mapa.winfo_children():
+            widget.destroy()
+
+        piso = self.piso_mapa.get()
+        filas = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "MR"]
+
+        for fila in filas:
+            frame_fila = ctk.CTkFrame(self.frame_mapa)
+            frame_fila.pack(fill="x", pady=2)
+            ctk.CTkLabel(frame_fila, text=fila, width=30).pack(side="left", padx=5)
+
+            if fila == "MR":
+                puestos = range(1, 11)
+            else:
+                puestos = range(1, 21)
+
+            for puesto in puestos:
+                clave = f"P{piso}{fila}{puesto}"
+                ocupado = self.parqueadero.espacios_parqueadero.get(clave, False)
+                color = "#e74c3c" if ocupado else "#2ecc71"
+                btn = ctk.CTkButton(frame_fila, text=str(puesto), width=35, height=25, fg_color=color,
+                                    hover_color=color)
+                btn.pack(side="left", padx=1)
 
 
 if __name__ == "__main__":
