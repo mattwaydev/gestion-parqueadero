@@ -11,6 +11,7 @@ class Parqueadero:
         self.placas = []
         self.horas_ingreso = []
         self.espacio = []
+        self.historial_pagos = []
 
         #crearé un diccionario para guardar los espacios de cada piso
         #y cada espacio lo generaré con un bucle
@@ -61,7 +62,7 @@ class Parqueadero:
             return "No hay espacios disponibles para este tipo de vehículo"
         return "Vehículo registrado exitosamente"
 
-    
+
     def retirar_vehiculo(self, placa):
         indice = self.placas.index(placa)
         espacio = self.espacio[indice]
@@ -80,6 +81,8 @@ class Parqueadero:
         self.horas_ingreso.pop(indice)
 
         #utlizo remove en una porque busca el valor y lo elimina, pop elimina por posición, lo usamos en horas porque la hora no es un valor único fácil de buscar
+
+        self.historial_pagos.append(f"{placa} - ${total} - {hora_salida.strftime('%H:%M:%S')}")
 
         return (f"Vehículo {placa} retirado. Total a pagar: ${total}")
 

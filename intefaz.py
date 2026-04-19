@@ -178,6 +178,8 @@ class ElPaso:
         self.entry_piso_admin = ctk.CTkEntry(self.panel_contenido, placeholder_text="1, 2 o 3")
         self.entry_piso_admin.pack(pady=5)
         ctk.CTkButton(self.panel_contenido, text="Ver piso", command=self.admin_consultar_piso).pack(pady=5)
+        ctk.CTkLabel(self.panel_contenido, text="Historial de pagos:").pack(pady=10)
+        ctk.CTkButton(self.panel_contenido, text="Ver historial", command=self.ver_historial).pack(pady=5)
 
     def admin_consultar_vehiculo(self):
         placa = self.entry_placa_admin.get()
@@ -194,6 +196,14 @@ class ElPaso:
             return
         resultado = self.parqueadero.consultar_piso(int(piso))
         messagebox.showinfo("Resultado", resultado)
+
+    def ver_historial(self):
+        historial = self.parqueadero.historial_pagos
+        if not historial:
+            messagebox.showinfo("Historial", "No hay pagos registrados aún")
+            return
+        texto = "\n".join(historial)
+        messagebox.showinfo("Historial de pagos", texto)
 
 
 if __name__ == "__main__":
