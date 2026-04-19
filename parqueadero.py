@@ -74,7 +74,7 @@ class Parqueadero:
 
         #utlizo remove en una porque busca el valor y lo elimina, pop elimina por posición, lo usamos en horas porque la hora no es un valor único fácil de buscar
 
-        print(f"Vehículo {placa} retirado. Total a pagar: ${total}")
+        return (f"Vehículo {placa} retirado. Total a pagar: ${total}")
 
     def consultar_vehiculo(self, placa):
         try:

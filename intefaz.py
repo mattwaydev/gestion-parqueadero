@@ -60,7 +60,24 @@ class ElPaso:
         messagebox.showinfo("Éxito", f"Vehículo {placa} registrado en {v.espacio}")
 
     def mostrar_retiro(self):
-        pass
+        for widget in self.panel_contenido.winfo_children():
+            widget.destroy()
+
+        ctk.CTkLabel(self.panel_contenido, text="Retirar vehículo", font=("Arial", 18, "bold")).pack(pady=20)
+
+        ctk.CTkLabel(self.panel_contenido, text="Placa:").pack()
+        self.entry_placa_retiro = ctk.CTkEntry(self.panel_contenido, placeholder_text="Ej: ABC123")
+        self.entry_placa_retiro.pack(pady=5)
+
+        ctk.CTkButton(self.panel_contenido, text="Retirar", command=self.retirar).pack(pady=10)
+
+    def retirar(self):
+        placa = self.entry_placa_retiro.get()
+        if not placa:
+            messagebox.showerror("Error", "Ingresa una placa")
+            return
+        resultado = self.parqueadero.retirar_vehiculo(placa)
+        messagebox.showinfo("Pago", resultado)
 
     def mostrar_consulta(self):
         pass
