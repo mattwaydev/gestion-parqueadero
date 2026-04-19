@@ -55,6 +55,13 @@ class Parqueadero:
                     vehiculo.espacio = clave
                     self.espacio.append(clave)
                     break
+        if vehiculo.espacio is None:
+            self.placas.remove(vehiculo.placa)
+            self.horas_ingreso.pop(-1)
+            return "No hay espacios disponibles para este tipo de vehículo"
+        return "Vehículo registrado exitosamente"
+
+    
     def retirar_vehiculo(self, placa):
         indice = self.placas.index(placa)
         espacio = self.espacio[indice]

@@ -59,8 +59,8 @@ class ElPaso:
             return
 
         v = Vehiculo(placa, tipo, mr)
-        self.parqueadero.registrar_vehiculo(v)
-        messagebox.showinfo("Éxito", f"Vehículo {placa} registrado en {v.espacio}")
+        resultado = self.parqueadero.registrar_vehiculo(v)
+        messagebox.showinfo("Resultado", resultado)
 
     def mostrar_retiro(self):
         for widget in self.panel_contenido.winfo_children():
