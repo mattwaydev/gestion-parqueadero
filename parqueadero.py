@@ -110,7 +110,33 @@ class Parqueadero:
         else:
             return f"Vehículos en el piso {piso}: {', '.join(vehiculos_piso)}" #join une los elementos de una lista en un solo texto, separándolos con lo que le pongo
 
+    def estadisticas(self):
+        motos_libres = 0
+        motos_ocupadas = 0
+        autos_libres = 0
+        autos_ocupadas = 0
+        mr_libres = 0
+        mr_ocupadas = 0
 
+        for clave, ocupado in self.espacios_parqueadero.items():
+            if "MR" in clave:
+                if ocupado:
+                    mr_ocupadas += 1
+                else:
+                    mr_libres += 1
+            elif clave[2] in ["A", "B", "C", "D", "E", "F"]:
+                if ocupado:
+                    motos_ocupadas += 1
+                else:
+                    motos_libres += 1
+            else:
+                if ocupado:
+                    autos_ocupadas += 1
+                else:
+                    autos_libres += 1
+        return (f"MOTOS: {motos_libres} libres, {motos_ocupadas} ocupadas\n"
+                f"AUTOS: {autos_libres} libres, {autos_ocupadas} ocupadas\n"
+                f"MOVILIDAD REDUCIDA: {mr_libres} libres, {mr_ocupadas} ocupadas")
 
 
 
