@@ -141,7 +141,19 @@ class Parqueadero:
 
 
 
+    def buscar_por_tipo(self, tipo):
+        resultado = []
+        for i, espacio in enumerate(self.espacio):
+            if tipo == "moto" and espacio[2] in ["A", "B", "C", "D", "E", "F"]:
+                resultado.append(f"{self.placas[i]} - {espacio}")
+            elif tipo == "auto" and espacio[2] in ["G", "H", "I", "J"]:
+                resultado.append(f"{self.placas[i]} - {espacio}")
+            elif tipo == "mr" and "MR" in espacio:
+                resultado.append(f"{self.placas[i]} - {espacio}")
 
+        if not resultado:
+            return f"No hay vehículos de tipo  '{tipo}' parqueados"
+        return "\n".join(resultado)
 
 
 

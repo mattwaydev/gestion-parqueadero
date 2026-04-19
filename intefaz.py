@@ -169,20 +169,31 @@ class ElPaso:
 
         ctk.CTkLabel(self.panel_contenido, text="Panel Administrador", font=("Arial", 18, "bold")).pack(pady=20)
 
-        ctk.CTkLabel(self.panel_contenido, text="Buscar vehículo por placa:").pack()
-        self.entry_placa_admin = ctk.CTkEntry(self.panel_contenido, placeholder_text="Ej: ABC123")
+        scroll = ctk.CTkScrollableFrame(self.panel_contenido)
+        scroll.pack(fill="both", expand=True, padx=10, pady=10)
+
+        ctk.CTkLabel(scroll, text="Buscar vehículo por placa:").pack()
+        self.entry_placa_admin = ctk.CTkEntry(scroll, placeholder_text="Ej: ABC123")
         self.entry_placa_admin.pack(pady=5)
-        ctk.CTkButton(self.panel_contenido, text="Buscar", command=self.admin_consultar_vehiculo).pack(pady=5)
+        ctk.CTkButton(scroll, text="Buscar", command=self.admin_consultar_vehiculo).pack(pady=5)
 
-        ctk.CTkLabel(self.panel_contenido, text="Ver vehículos por piso:").pack(pady=10)
-        self.entry_piso_admin = ctk.CTkEntry(self.panel_contenido, placeholder_text="1, 2 o 3")
+        ctk.CTkLabel(scroll, text="Ver vehículos por piso:").pack(pady=10)
+        self.entry_piso_admin = ctk.CTkEntry(scroll, placeholder_text="1, 2 o 3")
         self.entry_piso_admin.pack(pady=5)
-        ctk.CTkButton(self.panel_contenido, text="Ver piso", command=self.admin_consultar_piso).pack(pady=5)
-        ctk.CTkLabel(self.panel_contenido, text="Historial de pagos:").pack(pady=10)
-        ctk.CTkButton(self.panel_contenido, text="Ver historial", command=self.ver_historial).pack(pady=5)
-        ctk.CTkLabel(self.panel_contenido, text="Estadísticas:").pack(pady=10)
-        ctk.CTkButton(self.panel_contenido, text="Ver estadísticas", command=self.ver_estadisticas).pack(pady=5)
+        ctk.CTkButton(scroll, text="Ver piso", command=self.admin_consultar_piso).pack(pady=5)
 
+        ctk.CTkLabel(scroll, text="Historial de pagos:").pack(pady=10)
+        ctk.CTkButton(scroll, text="Ver historial", command=self.ver_historial).pack(pady=5)
+
+        ctk.CTkLabel(scroll, text="Estadísticas:").pack(pady=10)
+        ctk.CTkButton(scroll, text="Ver estadísticas", command=self.ver_estadisticas).pack(pady=5)
+
+        ctk.CTkLabel(scroll, text="Buscar por tipo:").pack(pady=10)
+        self.tipo_busqueda = ctk.StringVar(value="auto")
+        ctk.CTkRadioButton(scroll, text="Auto", variable=self.tipo_busqueda, value="auto").pack()
+        ctk.CTkRadioButton(scroll, text="Moto", variable=self.tipo_busqueda, value="moto").pack()
+        ctk.CTkRadioButton(scroll, text="Movilidad reducida", variable=self.tipo_busqueda, value="mr").pack()
+        ctk.CTkButton(scroll, text="Buscar", command=self.buscar_tipo).pack(pady=5)
     def admin_consultar_vehiculo(self):
         placa = self.entry_placa_admin.get()
         if not placa:
@@ -210,6 +221,11 @@ class ElPaso:
     def ver_estadisticas(self):
         resultado = self.parqueadero.estadisticas()
         messagebox.showinfo("Estadísticas", resultado)
+
+    def buscar_tipo(self):
+        tipo = self.tipo_busqueda.get()
+        resultado = self.parqueadero.buscar_por_tipo(tipo)
+        messagebox.showinfo("Resultado", resultado)
 
 if __name__ == "__main__":
     root = ctk.CTk()
