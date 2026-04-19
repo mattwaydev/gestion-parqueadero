@@ -6,9 +6,6 @@ p = Parqueadero()
 v = Vehiculo("ABC123", "auto", False)
 p.registrar_vehiculo(v)
 print(v)
-
-
-
+print(p.consultar_piso(1))  # antes de retirar
 time.sleep(2)
 p.retirar_vehiculo("ABC123")
-print(p.consultar_vehiculo("XYZ9993123"))

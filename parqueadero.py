@@ -84,6 +84,24 @@ class Parqueadero:
         except ValueError:
             return f"El vehículo {placa} no se encuentra en el parqueadero"
 
+    def consultar_piso(self, piso):
+
+        """
+            la linea 89 recorre la lista de espacios.
+            enumerate es especial porque te da dos cosas a la vez: el índice i y el valor espacio.
+            Lo necesitamos porque con el índice podemos buscar la placa correspondiente.
+            """
+        vehiculos_piso = [] #crearé una lista vacia para guardar las placas que encuentre en cierto piso
+        for i, espacio in enumerate(self.espacio):
+            if espacio.startswith(f"P{piso}"): #verifica si el espacio pertenece al piso que buscamos, si buscas piso 1, revisa el espacio empiza con "p1"
+                vehiculos_piso.append(self.placas[i]) #si el espacio es del piso buscado, agrega la placa correspondiente a la lista
+        if not vehiculos_piso:
+            return f"No hay vehículos en el piso {piso}"
+        else:
+            return f"Vehículos en el piso {piso}: {', '.join(vehiculos_piso)}" #join une los elementos de una lista en un solo texto, separándolos con lo que le pongo
+
+
+
 
 
 
