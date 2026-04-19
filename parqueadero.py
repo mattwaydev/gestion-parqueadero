@@ -1,4 +1,5 @@
 from datetime import datetime
+import math
 from operator import truediv
 
 import vehiculo
@@ -54,6 +55,28 @@ class Parqueadero:
                     vehiculo.espacio = clave
                     self.espacio.append(clave)
                     break
+    def retirar_vehiculo(self, placa):
+        indice = self.placas.index(placa)
+        espacio = self.espacio[indice]
+        hora_ingreso = self.horas_ingreso[indice]
+
+        hora_salida = datetime.now() #aca solo capturo la hora actual de salida
+        diferencia = hora_salida - hora_ingreso #resto las dos horas y me da la diferencia
+        horas = diferencia.total_seconds() / 3600 #aca simplemente convierto de segundos a horas
+        total = math.ceil(horas) * 2000 #con esto solo redondeo todo, es decir redondea hacia arriba (fracción de hora = hora completa)
+
+        #ahora hay que liberar el espacio y eliminar el vehiculo de las 3 listas
+
+        self.espacios_parqueadero[espacio] = False
+        self.placas.remove(placa)
+        self.espacio.remove(espacio)
+        self.horas_ingreso.pop(indice)
+
+        #utlizo remove en una porque busca el valor y lo elimina, pop elimina por posición, lo usamos en horas porque la hora no es un valor único fácil de buscar
+
+        print(f"Vehículo {placa} retirado. Total a pagar: ${total}")
+
+
 
 
 
