@@ -8,5 +8,7 @@ p.registrar_vehiculo(v)
 print(v)
 
 
+
 time.sleep(2)
 p.retirar_vehiculo("ABC123")
+print(p.consultar_vehiculo("XYZ9993123"))
