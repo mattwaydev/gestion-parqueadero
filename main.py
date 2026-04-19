@@ -1,4 +1,7 @@
-from parqueadero import Parqueadero #importo la clase que cree
+from parqueadero import Parqueadero
+from vehiculo import Vehiculo
 
-p = Parqueadero() #creo objeto de prueba
-print(len(p.espacios_parqueadero)) #cuento los espacios que se generaron
+p = Parqueadero()
+v = Vehiculo("ABC123", "auto", False)
+p.registrar_vehiculo(v)
+print(v)

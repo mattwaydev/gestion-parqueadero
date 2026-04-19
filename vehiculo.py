@@ -1,8 +1,8 @@
 class Vehiculo:
-    def __init__(self, placa, tipo, movilidad_reducidad):
+    def __init__(self, placa, tipo, movilidad_reducida):
         self.placa = placa
         self.tipo = tipo
-        self.movilidad_reducidad = movilidad_reducidad
+        self.movilidad_reducida = movilidad_reducida
         self.espacio = None
         self.hora_ingreso = None
 
