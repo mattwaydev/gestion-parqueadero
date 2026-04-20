@@ -1,7 +1,7 @@
 from datetime import datetime
 import math
 from operator import truediv
-
+import random
 import vehiculo
 
 
@@ -35,21 +35,24 @@ class Parqueadero:
         vehiculo.hora_ingreso = datetime.now() #aca llamo a la libreria que importe para que me la hora exacta de ingreso
         self.horas_ingreso.append(vehiculo.hora_ingreso) #y agrego la hora a la lista
 
-        for clave, valor in self.espacios_parqueadero.items():
+        for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
+            valor = self.espacios_parqueadero[clave]
             if not valor: #si esta libre
                 if vehiculo.tipo == "auto" and clave[2] in ["G", "H", "I", "J"]:
                     self.espacios_parqueadero[clave] = True #marco el espacio como ocupado en el diccionario
                     vehiculo.espacio = clave #le digo al vehiculo en que espacio quedó parqueado
                     self.espacio.append(clave) #agrego ese espacio a la lista de espacios asignados
                     break
-        for clave, valor in self.espacios_parqueadero.items():
+        for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
+            valor = self.espacios_parqueadero[clave]
             if not valor:
                 if vehiculo.tipo == "moto" and clave[2] in ["A", "B", "C", "D", "E", "F"]:
                     self.espacios_parqueadero[clave] = True
                     vehiculo.espacio = clave
                     self.espacio.append(clave)
                     break
-        for clave, valor in self.espacios_parqueadero.items():
+        for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
+            valor = self.espacios_parqueadero[clave]
             if not valor:
                 if vehiculo.movilidad_reducida and "MR" in clave:
                     self.espacios_parqueadero[clave] = True

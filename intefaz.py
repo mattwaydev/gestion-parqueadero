@@ -4,28 +4,31 @@ from parqueadero import Parqueadero
 from vehiculo import Vehiculo
 
 
+
 class ElPaso:
     def __init__(self, root):
         self.root = root
         self.root.title("El Paso")
         self.root.geometry("900x600")
         ctk.set_appearance_mode("dark")
-        ctk.set_default_color_theme("blue")
+        ctk.set_default_color_theme("autumn.json")
         self.parqueadero = Parqueadero()
-        self.crear_layout()
+        self.mostrar_inicio()
 
     def crear_layout(self):
         self.panel_menu = ctk.CTkFrame(self.root, width=200, corner_radius=0)
         self.panel_menu.pack(side="left", fill="y")
         self.panel_contenido = ctk.CTkFrame(self.root)
         self.panel_contenido.pack(side="right", fill="both", expand=True)
-        ctk.CTkLabel(self.panel_menu, text="El Paso", font=("Arial", 20, "bold")).pack(pady=20)
-        ctk.CTkLabel(self.panel_menu, text="GG, encontraste parqueadero", font=("Arial", 9), wraplength=180).pack()
-        ctk.CTkButton(self.panel_menu, text="Registrar vehículo", command=self.mostrar_registro).pack(pady=10, padx=10, fill="x")
-        ctk.CTkButton(self.panel_menu, text="Retirar vehículo", command=self.mostrar_retiro).pack(pady=5, padx=10, fill="x")
-        ctk.CTkLabel(self.panel_menu, text="─────────────", font=("Arial", 8)).pack(pady=5)
+        ctk.CTkLabel(self.panel_menu, text="El Paso", font=("Final Fantasy", 20, "bold")).pack(pady=20)
+        ctk.CTkLabel(self.panel_menu, text="GG, encontraste\nparqueadero", font=("Final Fantasy", 10), wraplength=160).pack(pady=10, padx=10)
+        ctk.CTkButton(self.panel_menu, text="Registrar vehículo", command=self.mostrar_registro).pack(pady=10, padx=10,
+                                                                                                      fill="x")
+        ctk.CTkButton(self.panel_menu, text="Retirar vehículo", command=self.mostrar_retiro).pack(pady=5, padx=10,
+                                                                                                  fill="x")
+        ctk.CTkLabel(self.panel_menu, text="─────────────", font=("Final Fantasy", 8)).pack(pady=5)
         ctk.CTkButton(self.panel_menu, text="Administrador", command=self.mostrar_admin).pack(pady=5, padx=10, fill="x")
-        ctk.CTkLabel(self.panel_menu, text="─────────────", font=("Arial", 8)).pack(pady=5)
+        ctk.CTkLabel(self.panel_menu, text="─────────────", font=("Final Fantasy", 8)).pack(pady=5)
         ctk.CTkButton(self.panel_menu, text="Ver mapa", command=self.mostrar_mapa).pack(pady=5, padx=10, fill="x")
 
 
@@ -33,7 +36,7 @@ class ElPaso:
         for widget in self.panel_contenido.winfo_children():
             widget.destroy()
 
-        ctk.CTkLabel(self.panel_contenido, text="Registrar vehículo", font=("Arial", 18, "bold")).pack(pady=20)
+        ctk.CTkLabel(self.panel_contenido, text="Registrar vehículo", font=("Final Fantasy", 18, "bold")).pack(pady=20)
 
         ctk.CTkLabel(self.panel_contenido, text="Placa:").pack()
         self.entry_placa = ctk.CTkEntry(self.panel_contenido, placeholder_text="Ej: ABC123")
@@ -66,7 +69,7 @@ class ElPaso:
         for widget in self.panel_contenido.winfo_children():
             widget.destroy()
 
-        ctk.CTkLabel(self.panel_contenido, text="Retirar vehículo", font=("Arial", 18, "bold")).pack(pady=20)
+        ctk.CTkLabel(self.panel_contenido, text="Retirar vehículo", font=("Final Fantasy", 18, "bold")).pack(pady=20)
 
         ctk.CTkLabel(self.panel_contenido, text="Placa:").pack()
         self.entry_placa_retiro = ctk.CTkEntry(self.panel_contenido, placeholder_text="Ej: ABC123")
@@ -86,7 +89,7 @@ class ElPaso:
         for widget in self.panel_contenido.winfo_children():
             widget.destroy()
 
-        ctk.CTkLabel(self.panel_contenido, text="Consultar", font=("Arial", 18, "bold")).pack(pady=20)
+        ctk.CTkLabel(self.panel_contenido, text="Consultar", font=("Final Fantasy", 18, "bold")).pack(pady=20)
 
         ctk.CTkLabel(self.panel_contenido, text="Buscar por placa:").pack()
         self.entry_placa_consulta = ctk.CTkEntry(self.panel_contenido, placeholder_text="Ej: ABC123")
@@ -118,7 +121,7 @@ class ElPaso:
         for widget in self.panel_contenido.winfo_children():
             widget.destroy()
 
-        ctk.CTkLabel(self.panel_contenido, text="Mapa del parqueadero", font=("Arial", 18, "bold")).pack(pady=10)
+        ctk.CTkLabel(self.panel_contenido, text="Mapa del parqueadero", font=("Final Fantasy", 18, "bold")).pack(pady=10)
 
         # Selector de piso
         self.piso_mapa = ctk.StringVar(value="1")
@@ -167,7 +170,7 @@ class ElPaso:
         for widget in self.panel_contenido.winfo_children():
             widget.destroy()
 
-        ctk.CTkLabel(self.panel_contenido, text="Panel Administrador", font=("Arial", 18, "bold")).pack(pady=20)
+        ctk.CTkLabel(self.panel_contenido, text="Panel Administrador", font=("Final Fantasy", 18, "bold")).pack(pady=20)
 
         scroll = ctk.CTkScrollableFrame(self.panel_contenido)
         scroll.pack(fill="both", expand=True, padx=10, pady=10)
@@ -226,6 +229,19 @@ class ElPaso:
         tipo = self.tipo_busqueda.get()
         resultado = self.parqueadero.buscar_por_tipo(tipo)
         messagebox.showinfo("Resultado", resultado)
+
+    def mostrar_inicio(self):
+        ctk.CTkLabel(self.root, text="🅿", font=("Final Fantasy", 80)).pack(pady=60)
+        ctk.CTkLabel(self.root, text="El Paso", font=("Final Fantasy", 40, "bold")).pack()
+        ctk.CTkLabel(self.root, text="GG, encontraste parqueadero", font=("Final Fantasy", 14)).pack(pady=10)
+        ctk.CTkButton(self.root, text=" INICIAR ", font=("Final Fantasy", 16), command=self.iniciar).pack(pady=40)
+
+    def iniciar(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+        self.crear_layout()
+        self.mostrar_registro()
+
 
 if __name__ == "__main__":
     root = ctk.CTk()
