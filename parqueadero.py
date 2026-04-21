@@ -35,30 +35,34 @@ class Parqueadero:
         vehiculo.hora_ingreso = datetime.now() #aca llamo a la libreria que importe para que me la hora exacta de ingreso
         self.horas_ingreso.append(vehiculo.hora_ingreso) #y agrego la hora a la lista
 
-        for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
-            valor = self.espacios_parqueadero[clave]
-            if not valor: #si esta libre
-                if vehiculo.tipo == "auto" and clave[2] in ["G", "H", "I", "J"]:
-                    self.espacios_parqueadero[clave] = True #marco el espacio como ocupado en el diccionario
-                    vehiculo.espacio = clave #le digo al vehiculo en que espacio quedó parqueado
-                    self.espacio.append(clave) #agrego ese espacio a la lista de espacios asignados
-                    break
-        for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
-            valor = self.espacios_parqueadero[clave]
-            if not valor:
-                if vehiculo.tipo == "moto" and clave[2] in ["A", "B", "C", "D", "E", "F"]:
+        if vehiculo.movilidad_reducida:
+            for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
+                valor = self.espacios_parqueadero[clave]
+                if not valor and "MR" in clave: #valido que el espacio si está libre
                     self.espacios_parqueadero[clave] = True
                     vehiculo.espacio = clave
                     self.espacio.append(clave)
                     break
-        for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
-            valor = self.espacios_parqueadero[clave]
-            if not valor:
-                if vehiculo.movilidad_reducida and "MR" in clave:
-                    self.espacios_parqueadero[clave] = True
-                    vehiculo.espacio = clave
-                    self.espacio.append(clave)
-                    break
+
+        else:
+
+            for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
+                valor = self.espacios_parqueadero[clave]
+                if not valor: #valido que el espacio si está libre
+                    if vehiculo.tipo == "auto" and clave[2] in ["G", "H", "I", "J"]:
+                        self.espacios_parqueadero[clave] = True #marco el espacio como ocupado en el diccionario
+                        vehiculo.espacio = clave #le digo al vehículo en que espacio quedó parqueado
+                        self.espacio.append(clave) #agrego ese espacio a la lista de espacios asignados
+                        break
+            for clave in random.sample(list(self.espacios_parqueadero.keys()), len(self.espacios_parqueadero)):
+                valor = self.espacios_parqueadero[clave]
+                if not valor: #valido que el espacio si está libre
+                    if vehiculo.tipo == "moto" and clave[2] in ["A", "B", "C", "D", "E", "F"]:
+                        self.espacios_parqueadero[clave] = True
+                        vehiculo.espacio = clave
+                        self.espacio.append(clave)
+                        break
+
         if vehiculo.espacio is None:
             self.placas.remove(vehiculo.placa)
             self.horas_ingreso.pop(-1)
@@ -67,6 +71,8 @@ class Parqueadero:
 
 
     def retirar_vehiculo(self, placa):
+        if placa not in self.placas:
+            return f"El placa {placa} no se encuentra en el parqueadero"
         indice = self.placas.index(placa)
         espacio = self.espacio[indice]
         hora_ingreso = self.horas_ingreso[indice]

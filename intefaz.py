@@ -240,7 +240,7 @@ class ElPaso:
         for widget in self.root.winfo_children():
             widget.destroy()
         self.crear_layout()
-        self.mostrar_registro()
+        self.mostrar_registro() 
 
 
 if __name__ == "__main__":
