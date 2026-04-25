@@ -31,8 +31,10 @@ class Parqueadero:
                 self.espacios_parqueadero[clave] = False
 
     def registrar_vehiculo(self, vehiculo):
+        if vehiculo.placa in self.placas:
+            return f"El vehículo {vehiculo.placa} ya está registrado en el parqueadero"
         self.placas.append(vehiculo.placa) #agrego la placa a la lista
-        vehiculo.hora_ingreso = datetime.now() #aca llamo a la libreria que importe para que me la hora exacta de ingreso
+        vehiculo.hora_ingreso = datetime.now() #aca llamo a la libreria que importe para que me dé la hora exacta de ingreso
         self.horas_ingreso.append(vehiculo.hora_ingreso) #y agrego la hora a la lista
 
         if vehiculo.movilidad_reducida:

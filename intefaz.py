@@ -109,13 +109,6 @@ class ElPaso:
         resultado = self.parqueadero.consultar_vehiculo(placa)
         messagebox.showinfo("Resultado", resultado)
 
-    def consultar_piso(self):
-        piso = self.entry_piso.get()
-        if not piso:
-            messagebox.showerror("Error", "Ingresa un piso")
-            return
-        resultado = self.parqueadero.consultar_piso(int(piso))
-        messagebox.showinfo("Resultado", resultado)
 
     def mostrar_mapa(self):
         for widget in self.panel_contenido.winfo_children():
@@ -209,6 +202,9 @@ class ElPaso:
         piso = self.entry_piso_admin.get()
         if not piso:
             messagebox.showerror("Error", "Ingresa un piso")
+            return
+        if piso not in ["1", "2", "3"]:
+            messagebox.showerror("Error", "El piso debe ser 1, 2 o 3")
             return
         resultado = self.parqueadero.consultar_piso(int(piso))
         messagebox.showinfo("Resultado", resultado)
