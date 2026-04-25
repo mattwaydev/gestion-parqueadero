@@ -166,6 +166,18 @@ class Parqueadero:
             return f"No hay vehículos de tipo  '{tipo}' parqueados"
         return "\n".join(resultado)
 
+    def reporte_ingresos(self):
+        if not self.historial_pagos:
+            return "No hay ingresos registrados aún"
+
+        total = sum([int(p.split("$")[1].split(" ")[0]) for p in self.historial_pagos])
+        pagos = [int(p.split("$")[1].split(" ")[0]) for p in self.historial_pagos]
+
+        return (f"Total vehículos atendidos: {len(self.historial_pagos)}\n"
+                f"Total recaudado: ${total}\n"
+                f"Pago más alto: ${max(pagos)}\n"
+                f"Pago más bajo: ${min(pagos)}")
+
 
 
 

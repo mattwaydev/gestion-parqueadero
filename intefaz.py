@@ -190,6 +190,10 @@ class ElPaso:
         ctk.CTkRadioButton(scroll, text="Moto", variable=self.tipo_busqueda, value="moto").pack()
         ctk.CTkRadioButton(scroll, text="Movilidad reducida", variable=self.tipo_busqueda, value="mr").pack()
         ctk.CTkButton(scroll, text="Buscar", command=self.buscar_tipo).pack(pady=5)
+
+        ctk.CTkLabel(scroll, text="Reporte de ingresos:").pack(pady=10)
+        ctk.CTkButton(scroll, text="Ver reporte", command=self.ver_reporte).pack(pady=5)
+
     def admin_consultar_vehiculo(self):
         placa = self.entry_placa_admin.get()
         if not placa:
@@ -236,7 +240,11 @@ class ElPaso:
         for widget in self.root.winfo_children():
             widget.destroy()
         self.crear_layout()
-        self.mostrar_registro() 
+        self.mostrar_registro()
+
+    def ver_reporte(self):
+        resultado = self.parqueadero.reporte_ingresos()
+        messagebox.showinfo("Reporte de ingresos", resultado)
 
 
 if __name__ == "__main__":
